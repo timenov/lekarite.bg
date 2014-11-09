@@ -165,7 +165,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -239,6 +238,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lekarite.Data\Lekarite.Data.csproj">
+      <Project>{6837d477-d2d8-41a1-ae05-7de140edb722}</Project>
+      <Name>Lekarite.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lekarite.Models\Lekarite.Models.csproj">
+      <Project>{d7323a7b-6d74-4b81-a198-59d733729e34}</Project>
+      <Name>Lekarite.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
