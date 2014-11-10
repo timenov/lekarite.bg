@@ -60,10 +60,21 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EFRepository.cs" />
+    <Compile Include="Seed\CitiesDataSeeder.cs" />
+    <Compile Include="Seed\DataSeeder.cs" />
+    <Compile Include="Seed\DataSeederExcecutor.cs" />
+    <Compile Include="Seed\DoctorsDataSeeder.cs" />
+    <Compile Include="Seed\IDataSeeder.cs" />
+    <Compile Include="Seed\SpecialitiesDataSeeder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="SeedFiles\allCities.csv" />
+    <None Include="SeedFiles\allDoctors.csv" />
+    <None Include="SeedFiles\shortCities.csv" />
+    <None Include="SeedFiles\shortDoctors.csv" />
+    <None Include="SeedFiles\specialities.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lekarite.Models\Lekarite.Models.csproj">

@@ -1,12 +1,18 @@
 namespace Lekarite.Data.Migrations
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
+    using Lekarite.Data.Interfaces;
+    using Lekarite.Data.Seed;
+
     internal sealed class Configuration : DbMigrationsConfiguration<LekariteDbContext>
     {
+        private const string Seed_Files_Path = @"D:\temp\CSharp Projects\Lekarite\Lekarite\Lekarite.Data\SeedFiles\";
+
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = true;
@@ -15,17 +21,22 @@ namespace Lekarite.Data.Migrations
 
         protected override void Seed(LekariteDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (context.Cities.FirstOrDefault() == null)
+            {
+                ILekariteData data = new LekariteData(context);
+                var dataSeederExcecutors = new List<DataSeederExcecutor>
+                {
+                    new DataSeederExcecutor(new CitiesDataSeeder(Seed_Files_Path + "shortCities.csv")),
+                    new DataSeederExcecutor(new DoctorsDataSeeder(Seed_Files_Path + "shortDoctors.csv")),
+                    new DataSeederExcecutor(new SpecialitiesDataSeeder(Seed_Files_Path + "specialities.csv"))
+                };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
+                foreach (var excecutor in dataSeederExcecutors)
+                {
+                    excecutor.Excecute(data);
+                    data.SaveChanges();
+                }
+            }
         }
     }
 }

@@ -22,7 +22,7 @@
 
         [Required]
         [Index(IsUnique = true)]
-        [StringLength(10)]
+        [MaxLength(10)]
         public string Uin { get; set; }
 
         [Required]

@@ -15,9 +15,11 @@
 
         public int Id { get; set; }
 
+        public int Code { get; set; }
+
         [Required]
         [Index(IsUnique = true)]
-        [MaxLength(50)]
+        [MaxLength(80)]
         public string Name { get; set; }
 
         public virtual ICollection<Doctor> Doctors
