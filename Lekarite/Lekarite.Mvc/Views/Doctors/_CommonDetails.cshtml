@@ -1,0 +1,7 @@
+﻿@model Lekarite.Mvc.Models.DoctorViewModel
+
+<div>
+    <h4>@Html.ActionLink(Model.LastName, "~/")</h4>
+    <span>@Model.City.Name, @Model.FirstName</span>
+    <div>@Html.ActionLink(Model.Uin, "#")</div>
+</div>
