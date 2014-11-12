@@ -1,6 +1,6 @@
 ﻿namespace Lekarite.Data.Seed
 {
-    using Lekarite.Data.Interfaces;
+    using Interfaces;
 
     public class DataSeederExcecutor
     {

@@ -61,10 +61,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EFRepository.cs" />
     <Compile Include="Seed\CitiesDataSeeder.cs" />
+    <Compile Include="Seed\CommentsDummyDataSeeder.cs" />
     <Compile Include="Seed\DataSeeder.cs" />
     <Compile Include="Seed\DataSeederExcecutor.cs" />
     <Compile Include="Seed\DoctorsDataSeeder.cs" />
+    <Compile Include="Seed\DummyDataSeederExcecutor.cs" />
+    <Compile Include="Seed\RatingsDummyDataSeeder.cs" />
     <Compile Include="Seed\IDataSeeder.cs" />
+    <Compile Include="Seed\IDummyDataSeeder.cs" />
+    <Compile Include="Seed\RandomSeedGenerator\IRandomGenerator.cs" />
+    <Compile Include="Seed\RandomSeedGenerator\RandomGenerator.cs" />
     <Compile Include="Seed\SpecialitiesDataSeeder.cs" />
   </ItemGroup>
   <ItemGroup>

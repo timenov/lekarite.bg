@@ -2,13 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
 
     using Lekarite.Models;
     using Lekarite.Mvc.Infrastructure.Mapping;
 
-    public class DoctorViewModel : IMapFrom<Doctor>
+    public class DoctorViewModel : IMapFrom<Doctor>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         public string Uin { get; set; }
 
         public string FirstName { get; set; }
@@ -16,6 +19,8 @@
         public string SecondName { get; set; }
 
         public string LastName { get; set; }
+
+        public string FullName { get; set; }
 
         public string PracticeAt { get; set; }
 
@@ -38,8 +43,26 @@
 
         public virtual ICollection<Comment> Comments { get; set; }
 
-        public virtual ICollection<Rating> Rating { get; set; }
+        public float Rating { get; set; }
 
-        public virtual ICollection<Speciality> Specialties { get; set; }
+        public int RatingsCount { get; set; }
+
+        public Speciality Specialty { get; set; }
+
+        public void CreateMappings(AutoMapper.IConfiguration configuration)
+        {
+            configuration.CreateMap<Doctor, DoctorViewModel>()
+                .ForMember(d => d.Rating, 
+                opt => opt.MapFrom(x => x.Rating.Count > 0
+                    ? (float)x.Rating.Sum(r => r.Value) / x.Rating.Count : 0));
+
+            configuration.CreateMap<Doctor, DoctorViewModel>()
+                .ForMember(d => d.FullName,
+                opt => opt.MapFrom(x => x.FirstName + " " + x.LastName));
+
+            configuration.CreateMap<Doctor, DoctorViewModel>()
+                .ForMember(d => d.RatingsCount,
+                opt => opt.MapFrom(d => d.Rating.Count));
+        }
     }
 }

@@ -13,23 +13,43 @@
 
     public class DoctorsController : BaseController
     {
+        private const int ItemsPerPage = 15;
+
         public DoctorsController(ILekariteData data)
             : base(data)
         {
         }
 
-        // GET: Doctors
-        public ActionResult Index()
+        public ActionResult All(int page = 1)
         {
-            var firstTenDoctors =
-                this.Data
+            var doctors = this.Data
                 .Doctors
                 .All()
-                .Take(10)
-                .Project()
-                .To<DoctorViewModel>();
+                .OrderBy(d => d.City.Name)
+                .ThenBy(d => d.LastName)
+                .Project().To<DoctorViewModel>()
+                .Skip(ItemsPerPage * (page - 1))
+                .Take(ItemsPerPage);
 
-            return View("FirstTen", firstTenDoctors);
+            return View(doctors);
+        }
+
+        public ActionResult Get(int? id)
+        {
+            var existingDoctor = this.Data
+                .Doctors
+                .All()
+                .Where(d => d.Id == id)
+                .Project()
+                .To<DoctorViewModel>()
+                .FirstOrDefault();
+
+            if (existingDoctor == null)
+            {
+                return this.HttpNotFound("No such doctor existing.");
+            }
+
+            return View(existingDoctor);
         }
     }
 }

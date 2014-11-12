@@ -6,6 +6,8 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using AutoMapper.QueryableExtensions;
+
     using Lekarite.Data;
     using Lekarite.Data.Interfaces;
     using Lekarite.Models;
@@ -18,30 +20,40 @@
         {
         }
 
+        //[OutputCache(Duration= 5 * 60)]
         public ActionResult Index()
         {
-            return View();
+            var homeTables = new HomeTablesViewModel();
+
+            var mostCommented =
+                this.Data
+                .Doctors
+                .All()
+                .OrderByDescending(d => d.Comments.Count)
+                .Take(5)
+                .Project()
+                .To<DoctorViewModel>();
+            homeTables.MostCommented = mostCommented;
+
+            var highestRating =
+                this.Data
+                .Doctors
+                .All()
+                .Where(d => d.Rating.Count > 4)
+                .OrderByDescending(d => (float)d.Rating.Sum(r => r.Value) / d.Rating.Count)
+                .Take(5)
+                .Project()
+                .To<DoctorViewModel>();
+            homeTables.HighestRating = highestRating;
+
+            return View(homeTables);
         }
 
-        public ActionResult About(int? id)
+        public ActionResult About()
         {
-            if (id == null)
-            {
-                return this.Redirect("~/Home/About/25");
-            }
             ViewBag.Message = "Your application description page.";
 
-            var existingCity = this.Data.Cities
-                .All()
-                .Where(c => c.Id == id)
-                .Select(CityViewModel.FromCity)
-                .FirstOrDefault();
-            if (existingCity == null)
-            {
-                return this.HttpNotFound();
-            }
-
-            return View(existingCity);
+            return View();
         }
 
         public ActionResult Contact()

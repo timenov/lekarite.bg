@@ -6,13 +6,11 @@
 
     public class Doctor
     {
-        private ICollection<Speciality> specialties;
         private ICollection<Comment> comments;
         private ICollection<Rating> rating;
 
         public Doctor()
         {
-            this.specialties = new HashSet<Speciality>();
             this.comments = new HashSet<Comment>();
             this.rating = new HashSet<Rating>();
         }
@@ -65,6 +63,10 @@
 
         public virtual City City { get; set; }
 
+        public int SpecialtyId { get; set; }
+
+        public virtual Speciality Specialty { get; set; }
+
         public virtual ICollection<Comment> Comments
         {
             get { return this.comments; }
@@ -75,12 +77,6 @@
         {
             get { return this.rating; }
             set { this.rating = value; }
-        }
-
-        public virtual ICollection<Speciality> Specialties
-        {
-            get { return this.specialties; }
-            set { this.specialties = value; }
         }
     }
 }

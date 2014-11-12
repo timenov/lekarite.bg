@@ -3,11 +3,15 @@
     using System;
     using System.Linq;
 
-    using Lekarite.Data.Interfaces;
     using Lekarite.Models;
+
+    using Interfaces;
+    using Seed.RandomSeedGenerator;
 
     public class DoctorsDataSeeder : DataSeeder, IDataSeeder
     {
+        private static Random random = new Random();
+
         public DoctorsDataSeeder(string pathToCsvFile)
             : base(pathToCsvFile)
         {
@@ -17,7 +21,14 @@
         {
             int entriesAddedAfterSave = 0;
             int cityId = 0;
-            var cities = data.Cities.All().Select(c => new { Id = c.Id, Name = c.Name });
+            var cities = data.Cities
+                .All()
+                .Select(c => new { Id = c.Id, Name = c.Name })
+                .ToList();
+            var specialties = data.Specialities
+                .All()
+                .Select(s => s.Id)
+                .ToList();
 
             foreach (var line in this.DataAllLines)
             {
@@ -29,10 +40,10 @@
                 }
                 else
                 {
-                    string uin = splitedLine[0];
-                    string firstName = splitedLine[1];
-                    string secondName = splitedLine.Length == 4 ? splitedLine[2] : null;
-                    string lastName = splitedLine[splitedLine.Length - 1];
+                    string uin = splitedLine[0].Trim();
+                    string firstName = splitedLine[1].Trim();
+                    string secondName = splitedLine.Length == 4 ? splitedLine[2].Trim() : null;
+                    string lastName = splitedLine[splitedLine.Length - 1].Trim();
 
                     data.Doctors.Add(new Doctor()
                     {
@@ -40,7 +51,8 @@
                         FirstName = firstName,
                         SecondName = secondName,
                         LastName = lastName,
-                        CityId = cityId
+                        CityId = cityId,
+                        SpecialtyId = specialties[random.Next(0, specialties.Count)]
                     });
 
                     entriesAddedAfterSave++;

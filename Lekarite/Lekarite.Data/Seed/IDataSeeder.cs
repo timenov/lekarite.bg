@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using Lekarite.Data.Interfaces;
+    using Lekarite.Data.Seed.RandomSeedGenerator;
 
     public interface IDataSeeder
     {

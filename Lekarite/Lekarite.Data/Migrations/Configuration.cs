@@ -6,12 +6,13 @@ namespace Lekarite.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    using Lekarite.Data.Interfaces;
-    using Lekarite.Data.Seed;
+    using Interfaces;
+    using Seed;
+    using Seed.RandomSeedGenerator;
 
     internal sealed class Configuration : DbMigrationsConfiguration<LekariteDbContext>
     {
-        private const string Seed_Files_Path = @"D:\temp\CSharp Projects\Lekarite\Lekarite\Lekarite.Data\SeedFiles\";
+        private const string SeedFilesPath = @"D:\temp\CSharp Projects\Lekarite\Lekarite\Lekarite.Data\SeedFiles\";
 
         public Configuration()
         {
@@ -21,21 +22,36 @@ namespace Lekarite.Data.Migrations
 
         protected override void Seed(LekariteDbContext context)
         {
-            if (context.Cities.FirstOrDefault() == null)
+            if (context.Cities.FirstOrDefault() != null)
             {
-                ILekariteData data = new LekariteData(context);
-                var dataSeederExcecutors = new List<DataSeederExcecutor>
+                return;
+            }
+
+            ILekariteData data = new LekariteData(context);
+
+            var dataSeederExecutors = new List<DataSeederExcecutor>
                 {
-                    new DataSeederExcecutor(new CitiesDataSeeder(Seed_Files_Path + "shortCities.csv")),
-                    new DataSeederExcecutor(new DoctorsDataSeeder(Seed_Files_Path + "shortDoctors.csv")),
-                    new DataSeederExcecutor(new SpecialitiesDataSeeder(Seed_Files_Path + "specialities.csv"))
+                    new DataSeederExcecutor(new CitiesDataSeeder(SeedFilesPath + "shortCities.csv")),
+                    new DataSeederExcecutor(new SpecialitiesDataSeeder(SeedFilesPath + "specialities.csv")),
+                    new DataSeederExcecutor(new DoctorsDataSeeder(SeedFilesPath + "shortDoctors.csv"))
                 };
 
-                foreach (var excecutor in dataSeederExcecutors)
+            foreach (var executor in dataSeederExecutors)
+            {
+                executor.Excecute(data);
+                data.SaveChanges();
+            }
+
+            var dummyDataSeederExcecutors = new List<DummyDataSeederExcecutor>
                 {
-                    excecutor.Excecute(data);
-                    data.SaveChanges();
-                }
+                    new DummyDataSeederExcecutor(new RatingsDummyDataSeeder()),
+                    new DummyDataSeederExcecutor(new CommentsDummyDataSeeder())
+                };
+
+            foreach (var executor in dummyDataSeederExcecutors)
+            {
+                executor.Excecute(data, RandomGenerator.Instance);
+                data.SaveChanges();
             }
         }
     }

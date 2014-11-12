@@ -1,0 +1,17 @@
+﻿@model Lekarite.Mvc.Models.DoctorViewModel
+
+<h2>@Model.FullName</h2>
+<p>Специалист по:</p>
+@Html.ActionLink(@Model.Specialty.Name, "", "Home")
+<p>Практикува в:</p>
+<span>@Model.PracticeAt</span>
+<p>Работи с НЗОК</p>
+<span>@Model.WorkingWithNhif</span>
+<p>Тел.</p>
+<span>@(Model.Phone + ", " + Model.Gsm)</span>
+<p>Мейл</p>
+<span>@Model.Email</span>
+<p>Адрес</p>
+<span>@Model.Address</span>
+<p>Оценка:</p>
+<span>@Model.Rating мин. -5 макс. 5 с @Model.RatingsCount глас(а)</span>
