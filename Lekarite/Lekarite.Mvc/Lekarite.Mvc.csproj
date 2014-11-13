@@ -197,6 +197,7 @@
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SpecialitiesController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,9 +207,11 @@
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CityViewModel.cs" />
+    <Compile Include="Models\Doctors\DoctorsPageViewModel.cs" />
     <Compile Include="Models\DoctorViewModel.cs" />
-    <Compile Include="Models\HomeTablesViewModel.cs" />
+    <Compile Include="Models\Home\HomeTablesViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Specialities\SpecilitiesPagesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -275,11 +278,13 @@
     <Content Include="Views\Shared\_ListDoctorsBasic.cshtml" />
     <Content Include="Views\Shared\_BasicDoctorDetails.cshtml" />
     <Content Include="Views\Doctors\Get.cshtml" />
+    <Content Include="Views\Doctors\All.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CityTemplates\DisplayTemplates\" />
+    <Folder Include="Views\Specialities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

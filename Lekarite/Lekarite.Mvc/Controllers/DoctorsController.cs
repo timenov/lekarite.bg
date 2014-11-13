@@ -10,6 +10,7 @@
 
     using Lekarite.Data.Interfaces;
     using Lekarite.Mvc.Models;
+    using Lekarite.Mvc.Models.Doctors;
 
     public class DoctorsController : BaseController
     {
@@ -22,6 +23,8 @@
 
         public ActionResult All(int page = 1)
         {
+            var pagesCount = (int)Math.Ceiling(this.Data.Doctors.All().Count() / (double)ItemsPerPage);
+
             var doctors = this.Data
                 .Doctors
                 .All()
@@ -29,9 +32,17 @@
                 .ThenBy(d => d.LastName)
                 .Project().To<DoctorViewModel>()
                 .Skip(ItemsPerPage * (page - 1))
-                .Take(ItemsPerPage);
+                .Take(ItemsPerPage)
+                .ToList();
 
-            return View(doctors);
+            var model = new DoctorsPageViewModel
+                {
+                    Doctors = doctors,
+                    CurrentPage = page,
+                    PagesCount = pagesCount
+                };
+
+            return View(model);
         }
 
         public ActionResult Get(int? id)
