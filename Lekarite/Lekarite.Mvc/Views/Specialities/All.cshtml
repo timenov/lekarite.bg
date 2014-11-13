@@ -1,0 +1,17 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<Lekarite.Mvc.Models.Specialities.SpecialityViewModel>
+
+<h2>Специалности</h2>
+
+
+<div class="container">
+    @foreach (var spec in Model)
+    {
+        <div class="row">
+            <h4>
+                @Html.ActionLink(spec.Name, "/Get/" + spec.Id)
+            </h4>
+        </div>
+    }
+</div>
+@Html.PagedListPager(Model, page => Url.Action("All", new { page }))

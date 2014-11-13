@@ -1,7 +1,8 @@
-﻿@model Lekarite.Mvc.Models.Doctors.DoctorsPageViewModel
+﻿@using PagedList.Mvc
+@model PagedList.PagedList<Lekarite.Mvc.Models.DoctorViewModel>
 
 <div class="container">
-    @foreach (var doctor in Model.Doctors)
+    @foreach (var doctor in Model)
     {
         <div class="row">
             <h3>@Html.ActionLink(doctor.FullName, "Get/" + doctor.Id)</h3>
@@ -10,29 +11,4 @@
         </div>
     }
 </div>
-
-@if (Model.PagesCount > 0)
-{
-    <!--Pagination-->
-    <div class="text-center">
-        <ul class="pagination">
-            <li><a href="~/Doctors/All?page=@Model.PrevPage">&laquo;&nbsp;</a></li>
-            @for (int i = -2; i <= 2; i++)
-            {
-                if (!(Model.CurrentPage + i <= 0 || Model.CurrentPage + i >= Model.PagesCount))
-                {
-                    if (i == 0)
-                    {
-                    <li class="active"><a href="~/Doctors/All?page=@(Model.CurrentPage + i)">@(Model.CurrentPage + i)</a></li>
-                    }
-                    else
-                    {
-                    <li><a href="~/Doctors/All?page=@(Model.CurrentPage + i)">@(Model.CurrentPage + i)</a></li>
-                    }
-                }
-            }
-            <li><a href="~/Doctors/All?page=@Model.NextPage">&nbsp;&raquo;</a></li>
-        </ul>
-    </div>
-    <!--End Pagination-->
-}
+@Html.PagedListPager(Model, page => Url.Action("All", new { page }))

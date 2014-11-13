@@ -7,10 +7,10 @@
     using System.Web.Mvc;
 
     using AutoMapper.QueryableExtensions;
+    using PagedList;
 
     using Lekarite.Data.Interfaces;
     using Lekarite.Mvc.Models;
-    using Lekarite.Mvc.Models.Doctors;
 
     public class DoctorsController : BaseController
     {
@@ -31,16 +31,9 @@
                 .OrderBy(d => d.City.Name)
                 .ThenBy(d => d.LastName)
                 .Project().To<DoctorViewModel>()
-                .Skip(ItemsPerPage * (page - 1))
-                .Take(ItemsPerPage)
                 .ToList();
 
-            var model = new DoctorsPageViewModel
-                {
-                    Doctors = doctors,
-                    CurrentPage = page,
-                    PagesCount = pagesCount
-                };
+            var model = new PagedList<DoctorViewModel>(doctors, page, ItemsPerPage);
 
             return View(model);
         }

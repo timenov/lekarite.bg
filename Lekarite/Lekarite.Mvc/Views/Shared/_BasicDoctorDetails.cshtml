@@ -3,8 +3,8 @@
 <div class="row">
     <div class="col-md-8">
         <strong>@Html.ActionLink(Model.FullName, "/Get/" + @Model.Id, "Doctors")</strong>
-        <p>practice at</p>
-        <p>@Model.Specialty.Name</p>
+        <div>practice at</div>
+        <div>@Html.ActionLink(@Model.Specialty.Name, "Get", "Specialities")</div>
     </div>
     <div class="col-md-2 text-right">@Model.Comments.Count</div>
     <div class="col-md-2 text-right">@Model.Rating.ToString("F2")</div>
