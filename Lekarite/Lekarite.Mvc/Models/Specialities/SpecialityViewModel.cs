@@ -4,6 +4,7 @@
     using System.Web;
 
     using Lekarite.Models;
+    using Lekarite.Mvc.Models.Doctors;
     using Lekarite.Mvc.Infrastructure.Mapping;
 
     public class SpecialityViewModel : IMapFrom<Speciality>

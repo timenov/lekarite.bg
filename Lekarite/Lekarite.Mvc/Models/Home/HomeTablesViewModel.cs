@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
 
-    using Lekarite.Mvc.Models;
+    using Lekarite.Mvc.Models.Doctors;
 
     public class HomeTablesViewModel
     {

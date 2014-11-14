@@ -12,6 +12,7 @@
     using Lekarite.Data.Interfaces;
     using Lekarite.Models;
     using Lekarite.Mvc.Models;
+    using Lekarite.Mvc.Models.Doctors;
 
     public class HomeController : BaseController
     {

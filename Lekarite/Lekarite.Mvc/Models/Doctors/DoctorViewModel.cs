@@ -1,4 +1,4 @@
-﻿namespace Lekarite.Mvc.Models
+﻿namespace Lekarite.Mvc.Models.Doctors
 {
     using System;
     using System.Collections.Generic;

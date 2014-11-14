@@ -1,8 +1,15 @@
 ﻿@using PagedList.Mvc
-@model PagedList.PagedList<Lekarite.Mvc.Models.DoctorViewModel>
+@model Lekarite.Mvc.Models.Doctors.FilterDoctorsViewModel
+
+@using(Html.BeginForm("All", "Doctors", FormMethod.Get))
+{
+    @Html.DropDownList("city", Model.Cities)
+    @Html.DropDownList("speciality", Model.Specialities)
+    <input type="submit"/>
+}
 
 <div class="container">
-    @foreach (var doctor in Model)
+    @foreach (var doctor in Model.Doctors)
     {
         <div class="row">
             <h3>@Html.ActionLink(doctor.FullName, "Get/" + doctor.Id)</h3>
@@ -11,4 +18,4 @@
         </div>
     }
 </div>
-@Html.PagedListPager(Model, page => Url.Action("All", new { page }))
+@Html.PagedListPager(Model.Doctors, page => Url.Action("All", new { page, city = ViewBag.CityId, speciality = ViewBag.SpecialityId }))

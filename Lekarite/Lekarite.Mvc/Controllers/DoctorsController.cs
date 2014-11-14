@@ -11,6 +11,8 @@
 
     using Lekarite.Data.Interfaces;
     using Lekarite.Mvc.Models;
+    using Lekarite.Mvc.Models.Doctors;
+    using Lekarite.Mvc.Models.Specialities;
 
     public class DoctorsController : BaseController
     {
@@ -21,19 +23,41 @@
         {
         }
 
-        public ActionResult All(int page = 1)
+        public ActionResult All(int page = 1, int? city = null, int? speciality = null)
         {
-            var pagesCount = (int)Math.Ceiling(this.Data.Doctors.All().Count() / (double)ItemsPerPage);
+            ViewBag.CityId = city;
+            ViewBag.SpecialityId = speciality;
 
             var doctors = this.Data
                 .Doctors
                 .All()
+                .Where(d => (d.CityId == city | city == null) && (d.SpecialtyId == speciality | speciality == null))
                 .OrderBy(d => d.City.Name)
                 .ThenBy(d => d.LastName)
                 .Project().To<DoctorViewModel>()
                 .ToList();
 
-            var model = new PagedList<DoctorViewModel>(doctors, page, ItemsPerPage);
+            var citiesList = this.Data
+                .Cities
+                .All()
+                .Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() })
+                .ToList();
+            var selectedAll = new SelectListItem { Text = "Всички", Value = "" };
+            citiesList.Insert(0, selectedAll);
+
+            var specialitiesList = this.Data
+                .Specialities
+                .All()
+                .Select(s => new SelectListItem { Text = s.Name, Value = s.Id.ToString() })
+                .ToList();
+            specialitiesList.Insert(0, selectedAll);
+
+            var model = new FilterDoctorsViewModel()
+            {
+                Doctors = new PagedList<DoctorViewModel>(doctors, page, ItemsPerPage),
+                Cities = citiesList,
+                Specialities = specialitiesList
+            };
 
             return View(model);
         }
