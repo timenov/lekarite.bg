@@ -13,6 +13,6 @@
 
         public string Name { get; set; }
 
-        public ICollection<DoctorViewModel> Doctors { get; set; }
+        public IEnumerable<SpecialityDoctorViewModel> Doctors { get; set; }
     }
 }

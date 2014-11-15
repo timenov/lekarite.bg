@@ -34,7 +34,7 @@
             return View(model);
         }
 
-        public ActionResult Get(int? id)
+        public ActionResult Get(int? id, int page = 1)
         {
             var existingSpeciality = this.Data
                 .Specialities
@@ -42,11 +42,14 @@
                 .Where(s => s.Id == id)
                 .Project().To<SpecialityViewModel>()
                 .FirstOrDefault();
-
+            
             if (existingSpeciality == null)
             {
                 return this.HttpNotFound("There is no such record.");                     
             }
+
+            existingSpeciality.Doctors =
+                new PagedList<SpecialityDoctorViewModel>(existingSpeciality.Doctors, page, ItemPerPage);
 
             return View(existingSpeciality);
         }

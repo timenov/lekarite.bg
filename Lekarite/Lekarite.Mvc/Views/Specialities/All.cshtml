@@ -4,13 +4,14 @@
 <h2>Специалности</h2>
 
 
-<div class="container">
+<div class="container container-striped">
     @foreach (var spec in Model)
     {
         <div class="row">
             <h4>
                 @Html.ActionLink(spec.Name, "Get", new { id = spec.Id })
             </h4>
+            <span>Общо: @spec.Doctors.Count() лекар(и)</span>
         </div>
     }
 </div>

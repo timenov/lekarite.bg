@@ -15,14 +15,23 @@
     </div>
 }
 
-<div class="container">
-    @foreach (var doctor in Model.Doctors)
-    {
-        <div class="row">
-            <h3>@Html.ActionLink(doctor.FullName, "Get", new { id = doctor.Id })</h3>
-            <p>@("УИН: " + doctor.Uin + ", ")@Html.ActionLink(doctor.City.Name, "/")</p>
-            <p>@Html.ActionLink(doctor.Speciality.Name, "Get", "Specialities", new { id = doctor.Speciality.Id }, null)</p>
-        </div>
-    }
-</div>
-@Html.PagedListPager(Model.Doctors, page => Url.Action("All", new { page, city = ViewBag.CityId, speciality = ViewBag.SpecialityId }))
+@if (Model.Doctors.Count > 0)
+{
+    <div class="container container-striped">
+        @foreach (var doctor in Model.Doctors)
+        {
+            <div class="row">
+                <h3>@Html.ActionLink(doctor.FullName, "Get", new { id = doctor.Id })</h3>
+                <p>@("УИН: " + doctor.Uin + ", ")@Html.ActionLink(doctor.City.Name, "/")</p>
+                <p>@Html.ActionLink(doctor.Speciality.Name, "Get", "Specialities", new { id = doctor.Speciality.Id }, null)</p>
+            </div>
+        }
+    </div>
+    @Html.PagedListPager(Model.Doctors, page => Url.Action("All", new { page, city = ViewBag.CityId, speciality = ViewBag.SpecialityId }))
+}
+else
+{
+    <h3 class="text-center">
+        <span class="label label-default">Няма намерени резултати</span>
+    </h3>
+}

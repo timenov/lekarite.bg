@@ -1,6 +1,31 @@
-﻿@model Lekarite.Mvc.Models.Specialities.SpecialityViewModel
+﻿@using PagedList.Mvc
+@using Lekarite.Mvc.Models.Specialities
+@model Lekarite.Mvc.Models.Specialities.SpecialityViewModel
 
 <h2>@Model.Name</h2>
 <h3>Специалисти:</h3>
 
-@Html.Partial("_ListDoctorsBasic", Model.Doctors)
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>име</th>
+            <th>коментари</th>
+            <th>оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model.Doctors)
+        {
+            <tr>
+                <td>
+                    <strong>@Html.ActionLink(doctor.FullName, "Get", "Doctors", new { id = doctor.Id }, null)</strong>
+                    &nbsp;&nbsp;&nbsp;
+                    <small>@doctor.CityName</small>
+                </td>
+                <td>@doctor.CommentsCount</td>
+                <td>@doctor.Rating.ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager((PagedList.PagedList<SpecialityDoctorViewModel>)Model.Doctors, page => Url.Action("Get", new { page }))
