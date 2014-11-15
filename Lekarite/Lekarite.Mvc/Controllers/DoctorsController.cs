@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Web;
     using System.Web.Mvc;
 
@@ -10,10 +11,11 @@
     using PagedList;
 
     using Lekarite.Data.Interfaces;
+    using Lekarite.Models;
     using Lekarite.Mvc.Models;
+    using Lekarite.Mvc.Models.Comments;
     using Lekarite.Mvc.Models.Doctors;
     using Lekarite.Mvc.Models.Specialities;
-    using System.Net;
 
     public class DoctorsController : BaseController
     {
@@ -21,8 +23,7 @@
 
         public DoctorsController(ILekariteData data)
             : base(data)
-        {
-        }
+        { }
 
         public ActionResult All(int page = 1, int? city = null, int? speciality = null)
         {
@@ -79,30 +80,6 @@
             }
 
             return View(existingDoctor);
-        }
-
-        public ActionResult GetCommentsById(int? doctorId)
-        {
-            if (!this.Request.IsAjaxRequest())
-            {
-                Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                return this.Content("This action can be invoke only by AJAX call");
-            }
-
-            var comments = this.Data
-                .Doctors
-                .Find(doctorId)
-                .Comments
-                .AsQueryable()
-                .Project().To<CommentViewModel>();
-
-            if (comments == null)
-            {
-                this.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return this.Content("Comment are not found");
-            }
-
-            return this.PartialView("_Comments", comments);
         }
     }
 }

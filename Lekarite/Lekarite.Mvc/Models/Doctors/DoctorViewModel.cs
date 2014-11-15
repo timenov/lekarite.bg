@@ -8,6 +8,8 @@
     using Lekarite.Models;
     using Lekarite.Mvc.Infrastructure.Mapping;
 
+    using Lekarite.Mvc.Models.Comments;
+
     public class DoctorViewModel : IMapFrom<Doctor>, IHaveCustomMappings
     {
         public int Id { get; set; }
@@ -37,11 +39,11 @@
 
         public string Address { get; set; }
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
 
-        public virtual City City { get; set; }
+        public City City { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentViewModel> Comments { get; set; }
 
         public float Rating { get; set; }
 

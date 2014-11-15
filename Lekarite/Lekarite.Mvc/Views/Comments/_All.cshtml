@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Lekarite.Mvc.Models.Comments.CommentViewModel>
+
+<div class="container container-striped">
+    @foreach (var comment in Model)
+    {
+        @Html.Partial("_CommentDetails", comment)
+    }
+</div>
+

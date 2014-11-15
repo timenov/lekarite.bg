@@ -1,0 +1,16 @@
+﻿@model Lekarite.Mvc.Models.Comments.CommentViewModel
+
+@using (Ajax.BeginForm("AddComment", "Comments", new { id = Model.DoctorId }, new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "comments",
+        HttpMethod = "POST"
+    },
+    new { @class = "form-horizontal text-center" }))
+{
+    <div class="form-group">
+        @Html.AntiForgeryToken()
+        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = "3" })
+        <input type="submit" class="btn btn-default" value="Запиши" />
+    </div>
+}

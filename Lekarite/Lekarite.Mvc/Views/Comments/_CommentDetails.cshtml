@@ -1,0 +1,9 @@
+﻿@model Lekarite.Mvc.Models.Comments.CommentViewModel
+
+<div class="row">
+    <h5>
+        от: <strong>@(Model.User != null ? Model.User.UserName : "anonymous")</strong>
+        <small class="pull-right text-right">(@Model.CreatedOn)</small>
+    </h5>
+    <p>@Model.Content</p>
+</div>

@@ -201,6 +201,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -214,8 +215,7 @@
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cities\CitiesViewModel.cs" />
-    <Compile Include="Models\CityViewModel.cs" />
-    <Compile Include="Models\Doctors\CommentViewModel.cs" />
+    <Compile Include="Models\Comments\CommentViewModel.cs" />
     <Compile Include="Models\Doctors\DoctorViewModel.cs" />
     <Compile Include="Models\Doctors\FilterDoctorsViewModel.cs" />
     <Compile Include="Models\Home\HomeDoctorViewModel.cs" />
@@ -286,16 +286,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_ListDoctorsBasic.cshtml" />
-    <Content Include="Views\Shared\_BasicDoctorDetails.cshtml" />
     <Content Include="Views\Doctors\Get.cshtml" />
     <Content Include="Views\Doctors\All.cshtml" />
     <Content Include="Views\Specialities\All.cshtml" />
     <Content Include="Views\Specialities\Get.cshtml" />
-    <Content Include="Views\Doctors\_Comments.cshtml" />
     <Content Include="Views\Home\_ListDoctorsTable.cshtml" />
     <Content Include="Views\Specialities\_ListDoctors.cshtml" />
     <Content Include="Views\Cities\All.cshtml" />
+    <Content Include="Views\Comments\_AddComment.cshtml" />
+    <Content Include="Views\Comments\_All.cshtml" />
+    <Content Include="Views\Comments\_CommentDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,11 +2,12 @@
 
 @{
     ViewBag.NoInfo = "няма информация";
+    const string CommentsPartialViewsFolder = "~/Views/Comments/{0}.cshtml";
 }
 
 <h2>@Model.FirstName @Model.SecondName @Model.LastName</h2>
 <span>@(string.Format("УИН: {0}", Model.Uin))</span>
-<br/>
+<br />
 <span>Специалист по:</span>
 <br />
 @Html.ActionLink(@Model.Speciality.Name, "Get", "Specialities", new { id = Model.Speciality.Id }, null)
@@ -46,7 +47,7 @@ else
 <br />
 <span>Оценка:</span>
 <br />
-<span>@(string.Format("{0} от -5/5 (мин/макс) с {1} глас(а)", Model.Rating, Model.RatingsCount))</span>
+<span>@(string.Format("{0:F2} от -5/5 (мин/макс) с {1} глас(а)", Model.Rating, Model.RatingsCount))</span>
 <br />
 <div class="text-center">
     @{
@@ -54,7 +55,8 @@ else
         if (commentsCount > 0)
         {
             @Ajax.ActionLink(string.Format("Виж коментарите ({0})", commentsCount),
-            "GetCommentsById",
+            "GetById",
+            "Comments",
             new { doctorId = Model.Id },
             new AjaxOptions
                 {
@@ -69,5 +71,9 @@ else
         }
     }
 </div>
-
 <div id="comments"></div>
+@if (this.Request.IsAuthenticated)
+{
+    Html.RenderPartial(string.Format(CommentsPartialViewsFolder, "_AddComment"),
+        new Lekarite.Mvc.Models.Comments.CommentViewModel { DoctorId = Model.Id });
+}
