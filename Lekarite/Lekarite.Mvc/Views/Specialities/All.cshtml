@@ -9,7 +9,7 @@
     {
         <div class="row">
             <h4>
-                @Html.ActionLink(spec.Name, "/Get/" + spec.Id)
+                @Html.ActionLink(spec.Name, "Get", new { id = spec.Id })
             </h4>
         </div>
     }

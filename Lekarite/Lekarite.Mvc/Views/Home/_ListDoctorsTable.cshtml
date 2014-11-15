@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Lekarite.Mvc.Models.Home.HomeDoctorViewModel>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>коментари</th>
+            <th>оценка</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model)
+        {
+            <tr>
+                <td>
+                    <div>
+                        <strong>
+                            @Html.ActionLink(doctor.FullName, "Get", "Doctors", new { id = doctor.Id }, null)
+                        </strong>
+                        <small>
+                            @Html.ActionLink(doctor.City.Name, "Get", "Cities", new { id = doctor.City.Id }, null)
+                        </small>
+                    </div>
+                    @if (doctor.Speciality != null)
+                    {
+                        <div>@Html.ActionLink(doctor.Speciality.Name, "Get", "Specialities", new { id = doctor.Speciality.Id }, null)</div>
+                    }
+                    else
+                    {
+                        <div>няма информация</div>
+                    }
+                </td>
+                <td>@doctor.CommentsCount</td>
+                <td>@doctor.Rating.ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+</table>

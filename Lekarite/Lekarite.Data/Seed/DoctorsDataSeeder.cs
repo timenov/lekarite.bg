@@ -52,7 +52,7 @@
                         SecondName = secondName,
                         LastName = lastName,
                         CityId = cityId,
-                        SpecialtyId = specialties[random.Next(0, specialties.Count)]
+                        SpecialityId = specialties[random.Next(0, specialties.Count)]
                     });
 
                     entriesAddedAfterSave++;

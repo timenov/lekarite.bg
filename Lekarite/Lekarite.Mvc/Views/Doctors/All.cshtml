@@ -1,20 +1,27 @@
 ﻿@using PagedList.Mvc
 @model Lekarite.Mvc.Models.Doctors.FilterDoctorsViewModel
 
-@using(Html.BeginForm("All", "Doctors", FormMethod.Get))
+<h2>Лекари</h2>
+
+@using (Html.BeginForm("All", "Doctors", FormMethod.Get))
 {
-    @Html.DropDownList("city", Model.Cities)
-    @Html.DropDownList("speciality", Model.Specialities)
-    <input type="submit"/>
+    <div class="form-inline">
+        <label for="city">Град:</label>
+        @Html.DropDownList("city", Model.Cities, new { @class = "form-control" })
+        &nbsp;
+        <label for="speciality">Специалност:</label>
+        @Html.DropDownList("speciality", Model.Specialities, new { @class = "form-control" })
+        <input class="btn btn-default" type="submit" value="Филтър" />
+    </div>
 }
 
 <div class="container">
     @foreach (var doctor in Model.Doctors)
     {
         <div class="row">
-            <h3>@Html.ActionLink(doctor.FullName, "Get/" + doctor.Id)</h3>
-            <p>@("УИН: " + doctor.Uin + ", ")@Html.ActionLink(doctor.City.Name, "/Home")</p>
-            <p>@Html.ActionLink(doctor.Specialty.Name, "/")</p>
+            <h3>@Html.ActionLink(doctor.FullName, "Get", new { id = doctor.Id })</h3>
+            <p>@("УИН: " + doctor.Uin + ", ")@Html.ActionLink(doctor.City.Name, "/")</p>
+            <p>@Html.ActionLink(doctor.Speciality.Name, "Get", "Specialities", new { id = doctor.Speciality.Id }, null)</p>
         </div>
     }
 </div>

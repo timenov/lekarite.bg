@@ -1,4 +1,4 @@
-﻿@model Lekarite.Mvc.Models.HomeTablesViewModel
+﻿@model Lekarite.Mvc.Models.Home.HomeTablesViewModel
 
 <div class="jumbotron">
     <h1>Lekarite.bg</h1>
@@ -9,11 +9,11 @@
     <div class="row">
         <div class="col-md-6">
             <h3 class="text-center">@Html.DisplayNameFor(model => model.MostCommented)</h3>
-            @Html.Partial("_ListDoctorsBasic", Model.MostCommented)
+            @Html.Partial("_ListDoctorsTable", Model.MostCommented)
         </div>
         <div class="col-md-6">
             <h3 class="text-center">@Html.DisplayNameFor(model => model.HighestRating)</h3>
-            @Html.Partial("_ListDoctorsBasic", Model.HighestRating)
+            @Html.Partial("_ListDoctorsTable", Model.HighestRating)
         </div>
     </div>
 </div>

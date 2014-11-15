@@ -213,8 +213,10 @@
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CityViewModel.cs" />
+    <Compile Include="Models\Doctors\CommentViewModel.cs" />
     <Compile Include="Models\Doctors\DoctorViewModel.cs" />
     <Compile Include="Models\Doctors\FilterDoctorsViewModel.cs" />
+    <Compile Include="Models\Home\HomeDoctorViewModel.cs" />
     <Compile Include="Models\Home\HomeTablesViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Specialities\SpecialityViewModel.cs" />
@@ -235,6 +237,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -286,6 +290,8 @@
     <Content Include="Views\Doctors\All.cshtml" />
     <Content Include="Views\Specialities\All.cshtml" />
     <Content Include="Views\Specialities\Get.cshtml" />
+    <Content Include="Views\Doctors\_Comments.cshtml" />
+    <Content Include="Views\Home\_ListDoctorsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

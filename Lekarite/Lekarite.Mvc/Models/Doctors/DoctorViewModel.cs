@@ -47,7 +47,7 @@
 
         public int RatingsCount { get; set; }
 
-        public Speciality Specialty { get; set; }
+        public Speciality Speciality { get; set; }
 
         public void CreateMappings(AutoMapper.IConfiguration configuration)
         {

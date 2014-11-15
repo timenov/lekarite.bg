@@ -12,7 +12,7 @@
     using Lekarite.Data.Interfaces;
     using Lekarite.Models;
     using Lekarite.Mvc.Models;
-    using Lekarite.Mvc.Models.Doctors;
+    using Lekarite.Mvc.Models.Home;
 
     public class HomeController : BaseController
     {
@@ -21,7 +21,7 @@
         {
         }
 
-        //[OutputCache(Duration= 5 * 60)]
+        [OutputCache(Duration = 5 * 60)]
         public ActionResult Index()
         {
             var homeTables = new HomeTablesViewModel();
@@ -33,7 +33,7 @@
                 .OrderByDescending(d => d.Comments.Count)
                 .Take(5)
                 .Project()
-                .To<DoctorViewModel>();
+                .To<HomeDoctorViewModel>();
             homeTables.MostCommented = mostCommented;
 
             var highestRating =
@@ -44,7 +44,7 @@
                 .OrderByDescending(d => (float)d.Rating.Sum(r => r.Value) / d.Rating.Count)
                 .Take(5)
                 .Project()
-                .To<DoctorViewModel>();
+                .To<HomeDoctorViewModel>();
             homeTables.HighestRating = highestRating;
 
             return View(homeTables);

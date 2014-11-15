@@ -63,9 +63,9 @@
 
         public virtual City City { get; set; }
 
-        public int SpecialtyId { get; set; }
+        public int SpecialityId { get; set; }
 
-        public virtual Speciality Specialty { get; set; }
+        public virtual Speciality Speciality { get; set; }
 
         public virtual ICollection<Comment> Comments
         {

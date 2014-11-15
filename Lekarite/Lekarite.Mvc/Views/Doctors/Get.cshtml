@@ -1,17 +1,72 @@
-﻿@model Lekarite.Mvc.Models.DoctorViewModel
+﻿@model Lekarite.Mvc.Models.Doctors.DoctorViewModel
 
-<h2>@Model.FullName</h2>
-<p>Специалист по:</p>
-@Html.ActionLink(@Model.Specialty.Name, "", "Home")
-<p>Практикува в:</p>
-<span>@Model.PracticeAt</span>
-<p>Работи с НЗОК</p>
-<span>@Model.WorkingWithNhif</span>
-<p>Тел.</p>
-<span>@(Model.Phone + ", " + Model.Gsm)</span>
-<p>Мейл</p>
-<span>@Model.Email</span>
-<p>Адрес</p>
-<span>@Model.Address</span>
-<p>Оценка:</p>
-<span>@Model.Rating мин. -5 макс. 5 с @Model.RatingsCount глас(а)</span>
+@{
+    ViewBag.NoInfo = "няма информация";
+}
+
+<h2>@Model.FirstName @Model.SecondName @Model.LastName</h2>
+<span>@(string.Format("УИН: {0}", Model.Uin))</span>
+<br/>
+<span>Специалист по:</span>
+<br />
+@Html.ActionLink(@Model.Speciality.Name, "Get", "Specialities", new { id = Model.Speciality.Id }, null)
+<br />
+<span>Практикува в:</span>
+<br />
+<span>@(Model.PracticeAt != null ? Model.PracticeAt : ViewBag.NoInfo)</span>
+<br />
+<span>Работи с НЗОК</span>
+@if (@Model.WorkingWithNhif)
+{
+    <span class="glyphicon glyphicon-ok"></span>
+}
+else
+{
+    <span class="glyphicon glyphicon-remove"></span>
+}
+<br />
+<span>Телефон:</span>
+<br />
+@if (@Model.Phone == null && @Model.Gsm == null)
+{
+    <span>@ViewBag.NoInfo</span>
+}
+else
+{
+    <span>@(string.Join(", ", new string[] { Model.Phone, Model.Gsm }))</span>
+}
+<br />
+<span>Мейл:</span>
+<br />
+<span>@(Model.Email != null ? Model.Email : ViewBag.NoInfo)</span>
+<br />
+<span>Адрес:</span>
+<br />
+<span>@(Model.Address != null ? Model.Address : ViewBag.NoInfo)</span>
+<br />
+<span>Оценка:</span>
+<br />
+<span>@(string.Format("{0} от -5/5 (мин/макс) с {1} глас(а)", Model.Rating, Model.RatingsCount))</span>
+<br />
+<div class="text-center">
+    @{
+        var commentsCount = Model.Comments.Count;
+        if (commentsCount > 0)
+        {
+            @Ajax.ActionLink(string.Format("Виж коментарите ({0})", commentsCount),
+            "GetCommentsById",
+            new { doctorId = Model.Id },
+            new AjaxOptions
+                {
+                    UpdateTargetId = "comments",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET"
+                })
+        }
+        else
+        {
+            <span>Този лекар все още няма коментари</span>
+        }
+    }
+</div>
+<div id="comments"></div>

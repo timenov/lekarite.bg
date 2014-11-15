@@ -1,16 +1,16 @@
-﻿namespace Lekarite.Mvc.Models
+﻿namespace Lekarite.Mvc.Models.Home
 {
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
 
-    using Lekarite.Mvc.Models.Doctors;
+    using Lekarite.Mvc.Models.Home;
 
     public class HomeTablesViewModel
     {
         [Display(Name = "Най-коментирани")]
-        public IEnumerable<DoctorViewModel> MostCommented { get; set; }
+        public IEnumerable<HomeDoctorViewModel> MostCommented { get; set; }
 
         [Display(Name = "Най-висока оценка")]
-        public IEnumerable<DoctorViewModel> HighestRating { get; set; }
+        public IEnumerable<HomeDoctorViewModel> HighestRating { get; set; }
     }
 }

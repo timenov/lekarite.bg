@@ -13,6 +13,7 @@
     using Lekarite.Mvc.Models;
     using Lekarite.Mvc.Models.Doctors;
     using Lekarite.Mvc.Models.Specialities;
+    using System.Net;
 
     public class DoctorsController : BaseController
     {
@@ -31,7 +32,7 @@
             var doctors = this.Data
                 .Doctors
                 .All()
-                .Where(d => (d.CityId == city | city == null) && (d.SpecialtyId == speciality | speciality == null))
+                .Where(d => (d.CityId == city | city == null) && (d.SpecialityId == speciality | speciality == null))
                 .OrderBy(d => d.City.Name)
                 .ThenBy(d => d.LastName)
                 .Project().To<DoctorViewModel>()
@@ -78,6 +79,30 @@
             }
 
             return View(existingDoctor);
+        }
+
+        public ActionResult GetCommentsById(int? doctorId)
+        {
+            if (!this.Request.IsAjaxRequest())
+            {
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return this.Content("This action can be invoke only by AJAX call");
+            }
+
+            var comments = this.Data
+                .Doctors
+                .Find(doctorId)
+                .Comments
+                .AsQueryable()
+                .Project().To<CommentViewModel>();
+
+            if (comments == null)
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return this.Content("Comment are not found");
+            }
+
+            return this.PartialView("_Comments", comments);
         }
     }
 }
