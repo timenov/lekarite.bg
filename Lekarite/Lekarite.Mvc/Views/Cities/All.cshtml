@@ -1,7 +1,22 @@
-﻿
+﻿@using PagedList.Mvc
+@model PagedList.PagedList<Lekarite.Mvc.Models.Cities.CitiesViewModel>
 @{
     ViewBag.Title = "Градове";
 }
 
-<h2>All</h2>
+<h2>@ViewBag.Title</h2>
 
+<div class="container container-striped">
+    @foreach (var city in Model)
+    {
+        <div class="row">
+            <h4 id="city-info">
+                <span>@city.PostalCode</span>
+                &nbsp;
+                @city.Name
+            </h4>
+            <span>Общо: @Html.ActionLink(string.Format("{0} лекар(и)", city.DoctorsCount), "All", "Doctors", new { city = city.Id }, null)</span>
+        </div>
+    }
+</div>
+@Html.PagedListPager(Model, page => Url.Action("All", new { page }))

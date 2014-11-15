@@ -286,7 +286,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\DisplayTemplates\CityViewModel.cshtml" />
     <Content Include="Views\Shared\_ListDoctorsBasic.cshtml" />
     <Content Include="Views\Shared\_BasicDoctorDetails.cshtml" />
     <Content Include="Views\Doctors\Get.cshtml" />
