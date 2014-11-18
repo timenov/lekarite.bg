@@ -82,3 +82,9 @@ a.bg-danger:hover {
 .container-striped > .row {
     margin-top: 0.5%;
 }
+
+.search-suggest {
+    background: white;
+    display: none;
+    position: absolute;
+}

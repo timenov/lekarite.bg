@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Lekarite.Mvc.Models.Search.DoctorSearchViewModel>
+
+<div class="list-group">
+    @foreach (var doctor in Model)
+    {
+        @Html.ActionLink(doctor.FullName, "Get", "Doctors", new { id = doctor.Id }, new { @class = "list-group-item" })
+    }
+</div>

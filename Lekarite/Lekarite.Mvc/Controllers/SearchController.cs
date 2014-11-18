@@ -26,7 +26,8 @@
         public ActionResult Results(string search)
         {
             ViewData["searchString"] = search;
-            search = search.Replace(' ', '|');
+            search = search.Replace(" ", "|");
+            //search = search.Insert(0, "\b");
             Regex regex = new Regex(search, RegexOptions.IgnoreCase);
 
             var results = this.Data
@@ -35,6 +36,20 @@
                 .Project().To<DoctorSearchViewModel>()
                 .AsEnumerable()
                 .Where(d => regex.IsMatch(d.FirstName.ToString()) | regex.IsMatch(d.LastName.ToString()));
+
+            if (this.Request.IsAjaxRequest())
+            {
+                if (search.Length > 2)
+                {
+                    var model = results.OrderBy(d => d.LastName).Take(5).ToList();
+                    return this.PartialView("_AjaxResults", model);
+                }
+                else
+                {
+                    return this.Content("Недостатъчна дължина");
+                }
+                
+            }
 
             return this.View(results);
         }
