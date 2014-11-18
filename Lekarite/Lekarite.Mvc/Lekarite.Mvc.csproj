@@ -205,6 +205,7 @@
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpecialitiesController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -221,6 +222,7 @@
     <Compile Include="Models\Home\HomeDoctorViewModel.cs" />
     <Compile Include="Models\Home\HomeTablesViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Search\DoctorSearchViewModel.cs" />
     <Compile Include="Models\Specialities\SpecialityDoctorViewModel.cs" />
     <Compile Include="Models\Specialities\SpecialityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,6 +298,7 @@
     <Content Include="Views\Comments\_AddComment.cshtml" />
     <Content Include="Views\Comments\_All.cshtml" />
     <Content Include="Views\Comments\_CommentDetails.cshtml" />
+    <Content Include="Views\Search\Results.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

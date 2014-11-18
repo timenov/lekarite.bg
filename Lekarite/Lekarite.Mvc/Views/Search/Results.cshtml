@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Lekarite.Mvc.Models.Search.DoctorSearchViewModel>
+@{
+    ViewBag.Title = "Резултати";
+    const string DoctorsGetByIdUrl = "/Doctors/Get/{0}";
+}
+
+<h2>Резултатът от вашето търсене за "@ViewData["searchString"]" е:</h2>
+<hr />
+<h3>Лекари</h3>
+<br />
+<div class="row">
+    @foreach (var doctor in Model)
+    {
+        <div class="col-lg-3">
+            <a href=@string.Format(DoctorsGetByIdUrl, doctor.Id) class="list-group-item">
+                <h5>@doctor.FullName</h5>
+                <p>
+                    <small>
+                        <span>@doctor.Uin</span>
+                        <span>, @doctor.CityName</span>
+                    </small>
+                </p>
+            </a>
+        </div>
+    }
+</div>

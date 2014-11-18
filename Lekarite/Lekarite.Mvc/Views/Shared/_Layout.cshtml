@@ -26,14 +26,21 @@
                     <li>@Html.ActionLink("Градове", "All", "Cities")</li>
                 </ul>
                 <div class="search">
-                    @using (Ajax.BeginForm("Search", null, new AjaxOptions(), new { @class = "navbar-form navbar-left", role = "search" }))
+                    @using (Ajax.BeginForm("Results", "Search", null,
+                        new AjaxOptions()
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "searchResults"
+                        },
+                        new { @class = "navbar-form navbar-left", role = "search", id = "searchForm" }))
                     {
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Търси по име">
+                            <input name="search" type="text" class="form-control" placeholder="Търси по име">
                         </div>
                         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        <div id="searchResult" style="display:inline; position:absolute; background:yellow; width:auto">some result here</div>
                     }
-                    <div id="searchResult" style="display:inline">ssd</div>
                 </div>
                 @Html.Partial("_LoginPartial")
             </div>
