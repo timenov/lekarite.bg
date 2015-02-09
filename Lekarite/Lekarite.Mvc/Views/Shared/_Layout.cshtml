@@ -55,24 +55,31 @@
     <script>
         $(document).ready(function () {
             $("#target").keyup(function () {
-                var search = $(this).val();
-                getItems(search);
+                var searchString = $(this).val();
+                if (searchString.length > 0) {
+                    getItems(searchString);
+                }
             });
 
-            function getItems(search) {
+            $('#target').focusout(function () {
+                $('#searchSuggests').fadeOut(1000, function () {
+                    $('#searchSuggests').html('');
+                });
+            })
+
+            function getItems(searchString) {
                 var req = $.ajax({
                     url: '@Url.Action("Results", "Search")',
                     type: 'GET',
-                    data: { "search": search },
+                    data: { "search": searchString },
                     encodeData: false,
                     dataType: "html"
-                })
+                });
 
                 req.done(function (res) {
-                    console.log(res);
                     $('#searchSuggests').html(res);
-                    $('#searchSuggests').show();
-                })
+                    $('#searchSuggests').fadeIn(1000);
+                });
             }
         });
     </script>

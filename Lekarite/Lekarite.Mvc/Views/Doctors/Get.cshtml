@@ -54,16 +54,20 @@ else
         var commentsCount = Model.Comments.Count;
         if (commentsCount > 0)
         {
-            @Ajax.ActionLink(string.Format("Виж коментарите ({0})", commentsCount),
-            "GetById",
-            "Comments",
-            new { doctorId = Model.Id },
-            new AjaxOptions
-                {
-                    UpdateTargetId = "comments",
-                    InsertionMode = InsertionMode.Replace,
-                    HttpMethod = "GET"
-                })
+                @(Ajax.ActionLink
+                (
+                    string.Format("Виж коментарите ({0})", commentsCount),
+                    "GetById",
+                    "Comments",
+                    new { doctorId = Model.Id },
+                    new AjaxOptions
+                        {
+                            UpdateTargetId = "comments",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnSuccess = "onSuccess"
+                        }, new { id = "show-comments" }
+                ))
         }
         else
         {
@@ -77,3 +81,11 @@ else
     Html.RenderPartial(string.Format(CommentsPartialViewsFolder, "_AddComment"),
         new Lekarite.Mvc.Models.Comments.CommentViewModel { DoctorId = Model.Id });
 }
+
+<script>
+    function onSuccess() {
+        $('#show-comments').on('click', function () {
+            return false;
+        });
+    }
+</script>

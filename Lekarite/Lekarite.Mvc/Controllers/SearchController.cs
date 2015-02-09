@@ -26,8 +26,12 @@
         public ActionResult Results(string search)
         {
             ViewData["searchString"] = search;
-            search = search.Replace(" ", "|");
-            //search = search.Insert(0, "\b");
+            search = search.Trim();
+            if (search.IndexOf(' ') != -1)
+            {
+                search = search.Replace(" ", "|");
+            }
+
             Regex regex = new Regex(search, RegexOptions.IgnoreCase);
 
             var results = this.Data
@@ -46,7 +50,7 @@
                 }
                 else
                 {
-                    return this.Content("Недостатъчна дължина");
+                    return this.Content("<span class=\"list-group-item\">Недостатъчна дължина</span>");
                 }
                 
             }
